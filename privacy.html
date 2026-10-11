@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy | TrustURL</title>
+<meta name="description" content="How TrustURL handles the links you submit.">
+<link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script type="module" src="assets/js/common.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html"><img src="assets/icons/logo.svg" alt="" width="28" height="28"><span>TrustURL</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page">
+  <article class="prose">
+    <h1>Privacy</h1>
+    <p class="meta">What happens to a link when you analyze it.</p>
+    <h2>Checks in your browser</h2>
+    <p>Reading and inspecting the structure of the link happens entirely in your browser.</p>
+    <h2>Reputation checks</h2>
+    <p>When the site owner has configured a reputation service, TrustURL sends the link to its server function, which forwards it to Google Safe Browsing and returns only the result. That service receives the address you submitted and may process it under its own terms.</p>
+    <p>Before sending, TrustURL removes any username, password, and fragment (the part after #). If the link has parameters whose names suggest private data, such as a token or session, the whole query string is left out of the lookup.</p>
+    <p>The link may still contain private information in its path or in parameters with other names. Do not analyze links that give access to private documents, accounts, or password resets.</p>
+    <h2>What TrustURL stores</h2>
+    <ul>
+      <li>No database: submitted links are not saved.</li>
+      <li>Server logs record only short error categories, never the link.</li>
+      <li>No cookies, analytics, advertising, or third-party scripts.</li>
+    </ul>
+    <p>Your hosting provider may keep standard request logs outside TrustURL's control.</p>
+    <h2>The link itself</h2>
+    <p>TrustURL never opens, fetches, or follows the link you submit.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><img src="assets/icons/logo.svg" alt="" width="24" height="24"><span>TrustURL</span></a>
+        <p>Checks links for potential security risks before you open them.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html#limitations">Limitations</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+    <p class="copyright">&copy; <span data-year>2026</span> TrustURL</p>
+  </div>
+</footer>
+</body>
+</html>

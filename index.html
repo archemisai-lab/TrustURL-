@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrustURL: Know before you click</title>
+<meta name="description" content="Check a link for potential security risks before opening it.">
+<link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script type="module" src="assets/js/app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html"><img src="assets/icons/logo.svg" alt="" width="28" height="28"><span>TrustURL</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="page-title">
+    <div class="narrow">
+      <h1 id="page-title">Know before you click.</h1>
+      <p class="lede">Check a link for potential security risks before opening it.</p>
+      <form id="url-form" class="analyzer" novalidate>
+        <label for="url-input">Link to check</label>
+        <div class="field-row">
+          <input id="url-input" name="url" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="2048" placeholder="https://example.com/page" aria-describedby="url-help url-error">
+          <button id="analyze-btn" class="btn" type="submit"><span class="btn-icon" aria-hidden="true"></span><span class="btn-label">Analyze URL</span></button>
+        </div>
+        <p id="url-error" class="error" role="alert" hidden></p>
+        <p id="url-help" class="helper">TrustURL examines the link text in your browser and, when enabled, asks a reputation service whether the address is on a known-threat list. It never opens the link. <a href="privacy.html">How your link is handled</a></p>
+      </form>
+    </div>
+  </section>
+  <p id="status" class="visually-hidden" role="status" aria-live="polite"></p>
+  <div class="report-wrap">
+    <div id="report" class="report" tabindex="-1" aria-label="Analysis report" hidden></div>
+  </div>
+  <section id="how-it-works" class="section" aria-labelledby="how-title">
+    <div class="container">
+      <h2 id="how-title" class="section-title">How it works</h2>
+      <ol class="steps">
+        <li class="step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><h3>Paste a link</h3><p>Copy the address from a message, email or page without opening it.</p></li>
+        <li class="step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><h3>Run the security checks</h3><p>TrustURL inspects the structure of the address and checks it against a reputation service when one is configured.</p></li>
+        <li class="step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg><h3>Review the findings</h3><p>Read what was found, how it was found, and what was not checked before you decide what to do.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><img src="assets/icons/logo.svg" alt="" width="24" height="24"><span>TrustURL</span></a>
+        <p>Checks links for potential security risks before you open them.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html#limitations">Limitations</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+    <p class="copyright">&copy; <span data-year>2026</span> TrustURL</p>
+  </div>
+</footer>
+</body>
+</html>
