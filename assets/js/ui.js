@@ -53,44 +53,85 @@ const STATUS = {
   risk: { icon: 'circle-x', label: 'Risk' },
   na: { icon: 'circle-help', label: 'Unavailable' },
 };
-const SOURCE_LABEL = { observation: 'Direct observation', reputation: 'Reputation service' };
+const SOURCE = {
+  observation: { icon: 'eye', label: 'Direct observation' },
+  reputation: { icon: 'cloud', label: 'Reputation service' },
+};
+
+function summaryChips(checks) {
+  const count = (...s) => checks.filter((c) => s.includes(c.status)).length;
+  const attention = count('warn', 'risk');
+  const parts = [
+    [checks.length, `${checks.length === 1 ? 'check' : 'checks'} run`],
+    [count('ok'), 'with no issue'],
+    [attention, attention === 1 ? 'needs attention' : 'need attention'],
+    [count('info'), count('info') === 1 ? 'note' : 'notes'],
+    [count('na'), 'unavailable'],
+  ].filter(([n]) => n > 0);
+  const list = el('ul', 'chips');
+  for (const [n, text] of parts) list.append(el('li', 'chip', `${n} ${text}`));
+  return list;
+}
+
+function addressBox(address) {
+  const box = el('div', 'address');
+  box.append(el('code', '', address));
+  const copy = el('button', 'btn-ghost', 'Copy');
+  copy.type = 'button';
+  copy.setAttribute('aria-label', 'Copy normalized address');
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(address);
+      copy.textContent = 'Copied';
+      announce('Address copied.');
+    } catch {
+      copy.textContent = 'Copy failed';
+    }
+    setTimeout(() => { copy.textContent = 'Copy'; }, 1800);
+  });
+  box.append(copy);
+  return box;
+}
 
 export function renderReport(container, report) {
   container.replaceChildren();
+  const a = report.assessment;
 
-  const overall = el('section', `card overall tone-${report.assessment.tone}`);
-  overall.setAttribute('aria-labelledby', 'overall-title');
-  const head = el('div', 'overall-head');
-  head.append(icon(report.assessment.icon, 'overall-icon'));
-  const headText = el('div');
-  headText.append(el('p', 'section-label', 'Overall assessment'));
-  const title = el('h2', 'overall-title', report.assessment.label);
+  const verdict = el('section', `verdict tone-${a.tone}`);
+  verdict.setAttribute('aria-labelledby', 'overall-title');
+  const vIcon = el('div', 'verdict-icon');
+  vIcon.append(icon(a.icon));
+  const vText = el('div', 'verdict-text');
+  const title = el('h2', 'overall-title', a.label);
   title.id = 'overall-title';
-  headText.append(title);
-  head.append(headText);
-  overall.append(head, el('p', 'overall-summary', report.assessment.summary));
+  vText.append(el('p', 'section-label', 'Overall assessment'), title, el('p', 'verdict-summary', a.summary), summaryChips(report.checks));
+  verdict.append(vIcon, vText);
 
-  const checks = el('section', 'card');
+  const checks = el('section', 'checks-section');
   checks.setAttribute('aria-labelledby', 'checks-title');
-  const checksTitle = el('h3', 'card-title', 'Security checks');
+  const checksTitle = el('h3', 'group-title', 'Security checks');
   checksTitle.id = 'checks-title';
   const list = el('ul', 'checks');
   for (const c of report.checks) {
     const s = STATUS[c.status];
+    const src = SOURCE[c.source];
     const item = el('li', `check status-${c.status}`);
-    item.append(icon(c.icon, 'check-icon'));
-    const body = el('div', 'check-body');
-    const row = el('div', 'check-row');
-    row.append(el('h4', 'check-title', c.title));
+    const top = el('div', 'check-top');
+    const tile = el('span', 'tile');
+    tile.append(icon(c.icon));
+    const heading = el('div', 'check-heading');
     const badge = el('span', 'badge');
     badge.append(icon(s.icon), el('span', '', s.label));
-    row.append(badge);
-    body.append(row, el('p', 'check-summary', c.summary), el('p', 'check-source', SOURCE_LABEL[c.source]));
-    item.append(body);
+    heading.append(el('h4', 'check-title', c.title), badge);
+    top.append(tile, heading);
+    const source = el('p', 'check-source');
+    source.append(icon(src.icon), el('span', '', src.label));
+    item.append(top, el('p', 'check-summary', c.summary), source);
     list.append(item);
   }
   checks.append(checksTitle, list);
 
+  const split = el('div', 'split');
   const details = el('section', 'card');
   details.setAttribute('aria-labelledby', 'details-title');
   const detailsTitle = el('h3', 'card-title', 'Technical details');
@@ -101,17 +142,22 @@ export function renderReport(container, report) {
     row.append(el('dt', '', k), el('dd', '', v));
     dl.append(row);
   }
-  details.append(detailsTitle, dl);
+  details.append(detailsTitle, addressBox(report.address), dl);
 
   const next = el('section', 'card');
   next.setAttribute('aria-labelledby', 'next-title');
   const nextTitle = el('h3', 'card-title', 'Next steps');
   nextTitle.id = 'next-title';
   const steps = el('ul', 'next-steps');
-  for (const s of report.nextSteps) steps.append(el('li', '', s));
+  for (const text of report.nextSteps) {
+    const li = el('li');
+    li.append(icon('circle-check'), el('span', '', text));
+    steps.append(li);
+  }
   next.append(nextTitle, steps);
+  split.append(details, next);
 
-  container.append(overall, checks, details, next);
+  container.append(verdict, checks, split);
   container.hidden = false;
 }
 
