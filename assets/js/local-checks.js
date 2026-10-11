@@ -2,8 +2,6 @@
 // Every check is labelled with its source: a direct observation of the URL text,
 // or a result returned by an external reputation service. No heuristic is treated as proof.
 
-import { displayAddress } from './url-parser.js';
-
 const OBSERVATION = 'observation';
 const REPUTATION = 'reputation';
 const TLD_LIKE = new Set(['com', 'net', 'org', 'co', 'gov', 'edu', 'io', 'info']);
@@ -147,7 +145,6 @@ export function buildNextSteps(assessment) {
 
 export function buildDetails(info, rep, queryRemoved) {
   const rows = [
-    ['Normalized address', displayAddress(info)],
     ['Hostname', info.host],
     ['Protocol', info.protocol.toUpperCase()],
     ['Port', info.port || 'Default'],
