@@ -29,8 +29,9 @@
       <form id="url-form" class="analyzer" novalidate>
         <label for="url-input">Link to check</label>
         <div class="field-row">
-          <input id="url-input" name="url" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="2048" placeholder="https://example.com/page" aria-describedby="url-help url-error">
-          <button id="analyze-btn" class="btn" type="submit"><span class="btn-icon" aria-hidden="true"></span><span class="btn-label">Analyze URL</span></button>
+  <span class="field-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+  <input id="url-input" name="url" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="2048" placeholder="https://example.com/page" aria-describedby="url-help url-error">
+  <button id="analyze-btn" class="btn" type="submit"><span class="btn-icon" aria-hidden="true"></span><span class="btn-label">Analyze URL</span></button>
         </div>
         <p id="url-error" class="error" role="alert" hidden></p>
         <p id="url-help" class="helper">TrustURL examines the link text in your browser and, when enabled, asks a reputation service whether the address is on a known-threat list. It never opens the link. <a href="privacy.html">How your link is handled</a></p>
